@@ -7,11 +7,15 @@
 class PlayerShip : public Ship
 {
 
+private:
+	
+
+	
 public:
 
 	/** @brief Creates a new instance of PlayerShip. */
-	PlayerShip() { }
-	virtual ~PlayerShip() { }
+	
+	virtual ~PlayerShip() {}
 
 	/** @brief Loads the content for the player ship.
 		@param resourceManager A reference to the game's resource manager,
@@ -22,6 +26,8 @@ public:
 		@param gameTime A reference to the game time object. */
 	virtual void Update(const GameTime& gameTime);
 
+	
+	
 	/** @brief Draws the player ship.
 		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
 	virtual void Draw(SpriteBatch& spriteBatch);

@@ -2,10 +2,12 @@
 #pragma once
 
 #include "EnemyShip.h"
+#include "PlayerShip.h"
 
 /** @brief Represents an enemy ship that is biological in nature. */
 class BioEnemyShip : public EnemyShip
 {
+	PlayerShip* m_pPlayer = nullptr;
 
 public:
 
@@ -19,7 +21,13 @@ public:
 
 	/** @brief Updates the enemy ship.
 		@param gameTime A reference to the game time object. */
-	virtual void Update(const GameTime& gameTime);
+	virtual void Update(const GameTime& gameTime) override;
+
+	virtual void SetDesiredDirection(const Vector2 direction) { m_desiredDirection.Set(direction); }
+
+	
+
+	
 
 	/** @brief Draws the enemy ship.
 		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
@@ -27,7 +35,7 @@ public:
 
 
 private:
-
+     Vector2 m_desiredDirection;
 	Texture *m_pTexture = nullptr;
 
-};
+}; 

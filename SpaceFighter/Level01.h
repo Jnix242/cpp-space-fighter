@@ -1,10 +1,13 @@
 #pragma once
 
 #include "Level.h"
+#include "PlayerShip.h"
 
 /** @brief The first level of the game. */
 class Level01 :	public Level
 {
+private:
+	
 
 public:
 	

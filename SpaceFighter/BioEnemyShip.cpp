@@ -1,6 +1,7 @@
 
 #include "BioEnemyShip.h"
 #include "Level.h"
+#include "PlayerShip.h"
 
 
 BioEnemyShip::BioEnemyShip()
@@ -11,13 +12,32 @@ BioEnemyShip::BioEnemyShip()
 }
 
 
-void BioEnemyShip::Update(const GameTime& gameTime)
+
+void BioEnemyShip::Update(const GameTime& gameTime )
 {
-	if (IsActive())
+	if (IsActive() )
 	{
-		float x = sin(gameTime.GetTotalTime() * Math::PI + GetIndex());
-		x *= GetSpeed() * gameTime.GetElapsedTime() * 1.4f;
-		TranslatePosition(x, GetSpeed() * gameTime.GetElapsedTime());
+		
+		PlayerShip* pTrack = GetCurrentLevel()->GetClosestObject<PlayerShip>(GetPosition(), 800.0f);
+		
+		if (pTrack)
+		{
+			Vector2 PlayerDirection = (pTrack->GetPosition() - GetPosition());
+			float length = PlayerDirection.Length();
+			if (length !=0)
+			{
+				PlayerDirection /= length;
+			}
+
+			SetDesiredDirection(PlayerDirection);
+
+			std::cout << PlayerDirection.X << "," << PlayerDirection.Y;
+		}
+
+		float speed = 150.0f;
+		TranslatePosition(m_desiredDirection * speed * gameTime.GetElapsedTime());
+
+		
 
 		if (!IsOnScreen()) Deactivate();
 	}

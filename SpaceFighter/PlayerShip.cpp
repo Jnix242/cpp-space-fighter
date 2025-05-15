@@ -1,6 +1,8 @@
 
 #include "PlayerShip.h"
 #include "Level.h"
+#include "EnemyShip.h"
+#include "BioEnemyShip.h"
 
 void PlayerShip::LoadContent(ResourceManager& resourceManager)
 {
@@ -73,7 +75,7 @@ void PlayerShip::Update(const GameTime& gameTime)
 	// We can't go from 0-100 mph instantly! This line interpolates the velocity for us.
 	m_velocity = Vector2::Lerp(m_velocity, targetVelocity, GetResponsiveness());
 	// Move that direction
-	TranslatePosition(m_velocity * 8);
+	TranslatePosition(m_velocity * 4);
 
 	if (m_isConfinedToScreen)
 	{
@@ -84,6 +86,9 @@ void PlayerShip::Update(const GameTime& gameTime)
 		const int BOTTOM = Game::GetScreenHeight() - PADDING;
 
 		Vector2* pPosition = &GetPosition(); // current position (middle of the ship)
+		
+		
+
 		if (pPosition->X - GetHalfDimensions().X < Left) // are we past the left edge?
 		{
 			// move the ship to the left edge of the screen (keep Y the same)
@@ -106,10 +111,13 @@ void PlayerShip::Update(const GameTime& gameTime)
 			SetPosition(pPosition->X, BOTTOM - GetHalfDimensions().Y);
 			m_velocity.Y = 0;
 		}
+       	
 	}
+
 
 	Ship::Update(gameTime);
 }
+
 
 void PlayerShip::Draw(SpriteBatch& spriteBatch)
 {
@@ -119,6 +127,7 @@ void PlayerShip::Draw(SpriteBatch& spriteBatch)
 		spriteBatch.Draw(m_pTexture, GetPosition(), Color::WHITE * alpha, m_pTexture->GetCenter());
 	}
 }
+
 
 
 Vector2 PlayerShip::GetHalfDimensions() const
